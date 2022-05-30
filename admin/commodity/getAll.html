@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>数据表格页面</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/admin/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/admin/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/admin/css/uniform.css" />
+<link rel="stylesheet" href="/admin/css/select2.css" />
+<link rel="stylesheet" href="/admin/css/matrix-style.css" />
+<link rel="stylesheet" href="/admin/css/matrix-media.css" />
+<link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div th:replace="admin/common/common::head"></div>
+<!--上边 头部-->
+<div th:replace="admin/common/common::top"></div>
+<!--左侧-->
+<div th:replace="admin/common/common::url"></div>
+
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"><a href="#" class="current">商品</a> </div>
+    <h1>商品</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <h5>商品||<a href="/commodity/admin/insert">添加</a></h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>目录</th>
+                  <th>名称</th>
+                  <th>价格</th>
+                  <th>库存</th>
+                  <th>图片1</th>
+                  <th>图片2</th>
+                  <th>图片3</th>
+                  <th>图片4</th>
+                  <th>图片5</th>
+                  <th>是否删除</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="gradeX" th:each="commodity,i:${Commoditys}">
+                  <td th:text="${(i.index+1)}"></td>
+                  <td th:text="${commodity.caName}"></td>
+                  <td th:text="${commodity.name}"></td>
+                  <td th:text="${commodity.price}"></td>
+                  <td th:text="${commodity.number}"></td>
+                  <td th:text="${commodity.url1}"></td>
+                  <td th:text="${commodity.url2}"></td>
+                  <td th:text="${commodity.url3}"></td>
+                  <td th:text="${commodity.url4}"></td>
+                  <td th:text="${commodity.url5}"></td>
+                  <td th:text="${commodity.delFlag.equals('2')}?'否':'是'"></td>
+                  <td><a th:href="@{'/commodity/admin/delete/'+${commodity.id}}">删除</a><a th:href="@{'/commodity/admin/update/'+${commodity.id}}">修改</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<div th:replace="admin/common/common::botm"></div>
+<!--end-Footer-part-->
+<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.ui.custom.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+<script src="/admin/js/jquery.uniform.js"></script>
+<script src="/admin/js/select2.min.js"></script>
+<script src="/admin/js/jquery.dataTables.min.js"></script>
+<script src="/admin/js/matrix.js"></script>
+<script src="/admin/js/matrix.tables.js"></script>
+</body>
+</html>

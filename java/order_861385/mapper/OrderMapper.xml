@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_861385.dao.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="order_861385.entity.Order">
+        <id column="id" property="id" />
+        <result column="u_id" property="uId" />
+        <result column="c_id" property="cId" />
+        <result column="spend" property="spend" />
+        <result column="number" property="number" />
+        <result column="u_name" property="uName" />
+        <result column="c_name" property="cName" />
+        <result column="is_pay" property="isPay" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, u_id, c_id, spend, number, u_name, c_name, is_pay
+    </sql>
+
+</mapper>

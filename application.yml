@@ -1,0 +1,38 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/order385?characterEncoding=utf8
+    username: root
+    password: root
+  web:
+    resources:
+      static-locations: classpath:/static/
+  thymeleaf:
+    suffix: .html
+    encoding: utf-8
+    cache: false
+    mode: HTML
+    enabled: true
+    prefix: classpath:/templates/
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 200MB
+  mail:
+    host: smtp.qq.com
+    username: 510664109@qq.com
+#    改成客户的
+    password: jtbkskujgtczbgje
+    port: 587
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+
+ImagePath: D:\javaProduct\order_861385\order_861385\src\main\resources\static\image\commodity
