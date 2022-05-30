@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>后台</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/admin/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/admin/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="/admin/css/fullcalendar.css"/>
+    <link rel="stylesheet" href="/admin/css/matrix-style.css"/>
+    <link rel="stylesheet" href="/admin/css/matrix-media.css"/>
+    <link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/admin/css/jquery.gritter.css"/>
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>-->
+</head>
+<body>
+
+<!---->
+<div th:replace="admin/common/common::head"></div>
+
+<!--上边 头部-->
+<div th:replace="admin/common/common::top"></div>
+
+<!--左侧-->
+<div th:replace="admin/common/common::url"></div>
+
+<!--main-container-part-->
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb"><a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a>
+        </div>
+    </div>
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="widget-box">
+                <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
+                    <h5>网站统计</h5>
+                </div>
+                <div class="widget-content">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <div class="chart" id="chart"></div>
+                        </div>
+                        <div class="span3">
+                            <ul class="site-stats">
+                                <li class="bg_lh"><i class="icon-shopping-cart"></i> <strong id="order">656</strong> <small>Total
+                                    Shop</small></li>
+                                <li class="bg_lh"><i class="icon-globe"></i> <strong id="user">8540</strong> <small>Online
+                                    Orders</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--end-main-container-part-->
+
+<!--Footer-part-->
+
+<div th:replace="admin/common/common::botm"></div>
+
+<!--end-Footer-part-->
+<script src="/admin/js/excanvas.min.js"></script>
+<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.ui.custom.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+<script src="/admin/js/jquery.flot.min.js"></script>
+<script src="/admin/js/jquery.flot.resize.min.js"></script>
+<script src="/admin/js/jquery.peity.min.js"></script>
+<script src="/admin/js/fullcalendar.min.js"></script>
+<script src="/admin/js/matrix.js"></script>
+<script src="/admin/js/matrix.dashboard.js"></script>
+<script src="/admin/js/jquery.gritter.min.js"></script>
+<script src="/admin/js/matrix.interface.js"></script>
+<script src="/admin/js/matrix.chat.js"></script>
+<script src="/admin/js/jquery.validate.js"></script>
+<script src="/admin/js/matrix.form_validation.js"></script>
+<script src="/admin/js/jquery.wizard.js"></script>
+<script src="/admin/js/jquery.uniform.js"></script>
+<script src="/admin/js/select2.min.js"></script>
+<script src="/admin/js/matrix.popover.js"></script>
+<script src="/admin/js/jquery.dataTables.min.js"></script>
+<script src="/admin/js/matrix.tables.js"></script>
+
+
+<script type="text/javascript" th:inline="none" >
+    function resetMenu() {
+        document.gomenu.selector.selectedIndex = 2;
+    }
+    $(function (){
+        var order=[],ox=[]
+        var user=[],ux=[]
+        var log=[]
+        $.get("/all",{},function (data) {
+
+            var log=data.log
+            $.each(log,function (i, o) {
+                var ox=new Date(o.x);
+                log[i]=[new Date(ox.getUTCFullYear(),ox.getMonth()+1,ox.getDate(),ox.getHours(),ox.getMinutes()).getTime(),o.y]
+            })
+            var onum=0;
+            $.each(data.order,function (i,o) {
+                var ox=new Date(o.x);
+                order[i]=[new Date(ox.getUTCFullYear(),ox.getMonth()+1,ox.getDate(),ox.getHours(),ox.getMinutes()).getTime(),o.y]
+                onum+=parseInt(o.y);
+            })
+            var num=0;
+            $.each(data.user,function (i,o) {
+                var ox=new Date(o.x);
+                user[i]=[new Date(ox.getUTCFullYear(),ox.getMonth()+1,ox.getDate(),ox.getHours(),ox.getMinutes()).getTime(),o.y]
+                num+=parseInt(o.y);
+            })
+            // console.log(log)
+            // console.log(order)
+            console.log(onum)
+            // console.log(new Date(2022,12,14,22,12))
+            // $.plot($("#chart"),[log,user,order])
+            $.plot($("#chart"),[
+                {
+                    label:"order",
+                    data: order,
+                    color: "#0000ff",
+                    lines: { show: true, steps: false },
+                    points: { show: true }
+                },
+                {
+                    label:"user",
+                    data: order,
+                    color: "#FF8848",
+                    lines: { show: true, steps: false },
+                    points: { show: true }
+                },
+                {
+                    label:"log",
+                    data: order,
+                    color: "#573e30",
+                    lines: { show: true, steps: false },
+                    points: { show: true }
+                }
+            ],{
+                grid: { hoverable: true, clickable: true },
+                xaxis: { mode: "time", timeformat: "%y-%m-%d %H:%M" }
+            })
+
+            $("#user").html(num)
+            $("#order").html(onum)
+        })
+
+    })
+</script>
+</body>
+</html>

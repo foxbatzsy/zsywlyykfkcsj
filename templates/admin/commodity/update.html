@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/admin/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/admin/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="/admin/css/colorpicker.css"/>
+    <link rel="stylesheet" href="/admin/css/datepicker.css"/>
+    <link rel="stylesheet" href="/admin/css/uniform.css"/>
+    <link rel="stylesheet" href="/admin/css/select2.css"/>
+    <link rel="stylesheet" href="/admin/css/matrix-style.css"/>
+    <link rel="stylesheet" href="/admin/css/matrix-media.css"/>
+    <link rel="stylesheet" href="/admin/css/bootstrap-wysihtml5.css"/>
+    <link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div th:replace="admin/common/common::head"></div>
+<!--上边 头部-->
+<div th:replace="admin/common/common::top"></div>
+<!--左侧-->
+<div th:replace="admin/common/common::url"></div>
+
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"><a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
+            首页</a> <a href="#" class="tip-bottom">修改商品</a>
+        </div>
+        <h1>修改商品</h1>
+    </div>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+                        <h5>修改商品</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form action="/commodity/admin/update" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <input type="hidden" th:value="${com.id}" name="id">
+                            <div class="control-group">
+                                <label class="control-label">商品类目 :</label>
+                                <div class="controls">
+                                    <select name="cId" th:each="c:${calist}">
+                                        <option th:value="${c.id}" th:text="${c.name}" th:selected="${com.id==c.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">商品名称 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="name" th:value="${com.name}" placeholder="商品名称"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">单价 :</label>
+                                <div class="controls">
+                                    <input type="text" class="span11" name="price" th:value="${com.price}" required placeholder="单价"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">库存 ：</label>
+                                <div class="controls">
+                                    <input type="number" class="span11" name="number" th:value="${com.number}" required placeholder="库存"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片一 :</label>
+                                <div class="controls">
+                                    <img th:src="${com.url1!=null?'/image/commodity/'+com.url1:''}" width="50%" height="50%"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片一 :</label>
+                                <div class="controls">
+                                    <input type="file" class="span11" name="url" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片二 :</label>
+                                <div class="controls">
+                                    <img th:src="${com.url2!=null?'/image/commodity/'+com.url2:''}" width="50%" height="50%" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片二 :</label>
+                                <div class="controls">
+                                    <input type="file" class="span11" name="url"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片三 :</label>
+                                <div class="controls">
+                                    <img th:src="${com.url3!=null?'/image/commodity/'+com.url3:''}" width="50%" height="50%" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片三 :</label>
+                                <div class="controls">
+                                    <input type="file" class="span11" name="url"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片四 :</label>
+                                <div class="controls">
+                                    <img th:src="${com.url4!=null?'/image/commodity/'+com.url4:''}" width="50%" height="50%" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片四 :</label>
+                                <div class="controls">
+                                    <input type="file" class="span11" name="url"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片五 :</label>
+                                <div class="controls">
+                                    <img th:src="${com.url5!=null?'/image/commodity/'+com.url5:''}" width="50%" height="50%" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">图片五 :</label>
+                                <div class="controls">
+                                    <input type="file" class="span11" name="url"/>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">修改</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="admin/common/common::botm"></div>
+
+<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.ui.custom.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+<script src="/admin/js/bootstrap-colorpicker.js"></script>
+<script src="/admin/js/bootstrap-datepicker.js"></script>
+<script src="/admin/js/jquery.toggle.buttons.html"></script>
+<script src="/admin/js/masked.js"></script>
+<script src="/admin/js/jquery.uniform.js"></script>
+<script src="/admin/js/select2.min.js"></script>
+<script src="/admin/js/matrix.js"></script>
+<script src="/admin/js/matrix.form_common.js"></script>
+<script src="/admin/js/wysihtml5-0.3.0.js"></script>
+<script src="/admin/js/jquery.peity.min.js"></script>
+<script src="/admin/js/bootstrap-wysihtml5.js"></script>
+<script>
+    $('.textarea_editor').wysihtml5();
+</script>
+</body>
+</html>

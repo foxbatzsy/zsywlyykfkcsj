@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title></title>
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- CSS Style -->
+    <link rel="stylesheet" type="text/css" href="/client/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/client/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/client/css/simple-line-icons.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/client/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/client/css/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="/client/css/jquery.bxslider.css">
+    <link rel="stylesheet" type="text/css" href="/client/css/jquery.mobile-menu.css">
+    <link rel="stylesheet" type="text/css" href="/client/css/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/client/css/revslider.css">
+</head>
+<body class="cms-index-index cms-home-page home">
+<div id="page">
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="container">
+                <div class="row">
+                    <!-- Header Language -->
+                    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 pull-left">
+
+                    </div>
+                    <!-- Header Top Links -->
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6 pull-right hidden-xs">
+                        <div class="toplinks">
+                            <div class="links">
+                                <div class="myaccount"><a title="My Account" href="#"><span class="hidden-xs" onclick="login()" th:text="${user!=null?user.name:'登录'}">登录</span></a>
+                                </div>
+                                <div class="login"><a href="/client/logout"><span class="hidden-xs">注销</span></a></div>
+                                <div class="login"><a href="/user/zhuce"><span class="hidden-xs">注册</span></a></div>
+                            </div>
+                        </div>
+                        <!-- End Header Top Links -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 logo-block">
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-6 col-xs-3 hidden-xs category-search-form">
+                    <div class="contact-row">
+                        <div class="phone inline">
+                        </div>
+                        <div class="contact inline">
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <form id="search_mini_form" action="/index" method="get">
+                            <!-- Autocomplete End code -->
+                            <input id="search" type="text" name="sea" value="" placeholder="检索" class="searchbox" maxlength="128">
+                            <button type="submit" title="Search" class="search-btn-bg" id="submit-button"></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 card_wishlist_area">
+                    <div class="mm-toggle-wrap">
+                        <div class="mm-toggle"><i class="fa fa-align-justify"></i><span class="mm-label">Menu</span>
+                        </div>
+                    </div>
+                    <div class="top-cart-contain">
+                        <!-- Top Cart -->
+                        <div class="mini-cart">
+                            <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"><a
+                                    href="#"><span>购物车</span> <span class="cart_count"></span>
+                                <div class="price"></div>
+                            </a></div>
+                            <div>
+                                <div class="top-cart-content">
+                                    <!--block-subtitle-->
+                                    <ul class="mini-products-list" id="cart-sidebar">
+                                        <li class="item first" th:each="s:${sh}">
+                                            <div class="item-inner">
+                                                <div class="product-details">
+                                                    <div class="access"><a class="btn-remove1" title="Remove This Item"
+                                                                           href="#">Remove</a></div>
+                                                    <p class="product-name"><a href="#" th:text="${s.number}"></a></p>
+                                                    <span th:text="${s.number}"></span> x <span class="price" th:text="${s.spend}"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!--actions-->
+                                    <div class="actions">
+                                        <button class="btn-checkout" onclick="jiesuan()"  type="button"><span>结算</span>
+                                        </button>
+                                        <input type="hidden" id="id" th:value="${user!=null?user.id:''}">
+                                        <a th:href="@{'/client/clear/'+${user!=null?user.id:''}}" onclick="clear()" class="view-cart"><span >清空</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Top Cart -->
+                        <div id="ajaxconfig_info" style="display:none"><a href="#/"></a>
+                            <input value="" type="hidden">
+                            <input id="enable_module" value="1" type="hidden">
+                            <input class="effect_to_cart" value="1" type="hidden">
+                            <input class="title_shopping_cart" value="Go to shopping cart" type="hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content-page">
+            <div class="category-product">
+                <div class="navbar nav-menu">
+                    <div class="navbar-collapse">
+                        <!--<h1>Trending</h1>-->
+                        <ul class="nav navbar-nav" >
+                           <!-- <li class="active"><a data-toggle="tab" href="#tab-1">栏目一</a></li>
+                            <li class=" "><a data-toggle="tab" href="#tab-2">栏目二</a></li>-->
+                            <li class="" th:each="ca:${ca}"><a data-toggle="tab" th:href="@{'#tab-'+${ca.id}}" class="  " th:text="${ca.name}">栏目三</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="product-bestseller">
+                    <div class="product-bestseller-content">
+                        <div class="product-bestseller-list">
+                            <div class="tab-container">
+                                <div th:each="ca,i:${ca}" th:id="${'tab-'+ca.id}" th:class="${i.index == 0} ? 'tab-panel active' : 'tab-panel' " >
+                                    <div class="category-products">
+                                        <ul class="products-grid">
+                                            <li class="item col-lg-3 col-md-3 col-sm-3 col-xs-6" th:each="c:${coms.get('ca_'+ca.id)}">
+                                                <div class="item-inner">
+                                                    <div class="item-img">
+                                                        <div class="item-img-info"><a class="product-image"
+                                                                                      href="product_detail.html"> <img
+                                                                alt="" th:src="${'/image/commodity/'+c.url1}"> </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"><a th:href="@{'/client/info'+c.id}" th:text="${c.name}">商品一</a></div>
+                                                            <div class="brand" th:text="${'库存：'+c.number+'件'}">库存</div>
+                                                            <div class="rating">
+                                                                <div class="ratings">
+                                                                    <div class="rating-box">
+                                                                        <div style="width:80%" class="rating"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-content">
+                                                                <div class="item-price">
+                                                                    <div class="price-box"><span class="regular-price"> <span
+                                                                            class="price" th:text="${'$'+c.price}">$129.00</span> </span></div>
+                                                                </div>
+                                                                <div class="action">
+                                                                    <button class="button btn-cart" type="button"
+                                                                            title="" th:onclick="'javascript:shoping(\''+${c.id}+'\')'" data-original-title="Add to Cart">
+                                                                        <i class="fa fa-shopping-basket"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/client/js/jquery-3.2.1.min.js"></script>
+    <script src="/client/js/bootstrap.min.js"></script>
+    <script src="/client/js/revslider.js"></script>
+    <script src="/client/js/common.js"></script>
+    <script src="/client/js/owl.carousel.min.js"></script>
+    <script src="/client/js/jquery.mobile-menu.min.js"></script>
+    <script src="/client/js/countdown.js"></script>
+    <script type="text/javascript">
+        function jiesuan(){
+            var address=prompt("地址");
+            // alert($("#id").val())
+            $.post("/shopping/jiesuan/"+$("#id").val(),{address:address},function (data) {
+                alert(data.msg);
+                if (data.code==1)
+                    window.location.reload()
+            })
+        }
+    </script>
+    <script type="text/javascript">
+        function shoping(id) {
+            $.get("/shopping/insert/"+id,{},function (data) {
+                alert(data.msg)
+                if (data.code==1)
+                    window.location.reload()
+            })
+        }
+        function login() {
+            var username=prompt("用户名");
+            var password=prompt("密码")
+            $.post("/client/login",{username:username,password:password},function (data) {
+                alert(data.msg)
+                if (data.code==1){
+                    window.location.reload("/index")
+                }
+            })
+        }
+    </script>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('#rev_slider_4').show().revolution({
+                dottedOverlay: 'none',
+                delay: 5000,
+                startwidth: 1170,
+                startheight: 510,
+
+                hideThumbs: 200,
+                thumbWidth: 200,
+                thumbHeight: 50,
+                thumbAmount: 2,
+
+                navigationType: 'thumb',
+                navigationArrows: 'solo',
+                navigationStyle: 'round',
+
+                touchenabled: 'on',
+                onHoverStop: 'on',
+
+                swipe_velocity: 0.7,
+                swipe_min_touches: 1,
+                swipe_max_touches: 1,
+                drag_block_vertical: false,
+
+                spinner: 'spinner0',
+                keyboardNavigation: 'off',
+
+                navigationHAlign: 'center',
+                navigationVAlign: 'bottom',
+                navigationHOffset: 0,
+                navigationVOffset: 20,
+
+                soloArrowLeftHalign: 'left',
+                soloArrowLeftValign: 'center',
+                soloArrowLeftHOffset: 20,
+                soloArrowLeftVOffset: 0,
+
+                soloArrowRightHalign: 'right',
+                soloArrowRightValign: 'center',
+                soloArrowRightHOffset: 20,
+                soloArrowRightVOffset: 0,
+
+                shadow: 0,
+                fullWidth: 'on',
+                fullScreen: 'off',
+
+                stopLoop: 'off',
+                stopAfterLoops: -1,
+                stopAtSlide: -1,
+
+                shuffle: 'off',
+
+                autoHeight: 'off',
+                forceFullWidth: 'on',
+                fullScreenAlignForce: 'off',
+                minFullScreenHeight: 0,
+                hideNavDelayOnMobile: 1500,
+
+                hideThumbsOnMobile: 'off',
+                hideBulletsOnMobile: 'off',
+                hideArrowsOnMobile: 'off',
+                hideThumbsUnderResolution: 0,
+
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                startWithSlide: 0,
+                fullScreenOffsetContainer: ''
+            });
+        });
+    </script>
+    <!-- Hot Deals Timer 1-->
+    <script>
+        var dthen1 = new Date("12/25/17 11:59:00 PM");
+        start = "08/04/15 03:02:11 AM";
+        start_date = Date.parse(start);
+        var dnow1 = new Date(start_date);
+        if (CountStepper > 0)
+            ddiff = new Date((dnow1) - (dthen1));
+        else
+            ddiff = new Date((dthen1) - (dnow1));
+        gsecs1 = Math.floor(ddiff.valueOf() / 1000);
+
+        var iid1 = "countbox_1";
+        CountBack_slider(gsecs1, "countbox_1", 1);
+    </script>
+</body>
+</html>
+
